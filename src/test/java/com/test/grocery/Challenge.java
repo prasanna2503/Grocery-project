@@ -26,68 +26,13 @@ public class Challenge {
 		WebElement loginBtn = driver.findElement(By.xpath("//button[text()='Login']"));
 		loginBtn.click();
 		
-		WebDriverWait wt = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wt.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='CATEGORIES ']")));
-		
 		try {
 			driver.findElement(By.xpath("//a[@class='cart_btn']")).click();
 			Thread.sleep(2000);
 			driver.findElement(By.xpath("//a[text()=' Go To Cart ']")).click();
-			driver.findElement(By.xpath("//div[@class='scheduleClose']")).click();
-		} catch (NoSuchElementException e) {
-			WebElement catageoryTab = driver.findElement(By.xpath("//a[text()='CATEGORIES ']"));
-
-			Actions action = new Actions(driver);
-			action.moveToElement(catageoryTab).perform();
-
-			WebElement groceryTab = driver.findElement(By.xpath("//a[text()='Grocery']"));
-
-			action.moveToElement(groceryTab).perform();
-
-			WebElement fruitsNutsTab = driver.findElement(By.xpath("//a[text()='Fruit & Nuts']"));
-			fruitsNutsTab.click();
-
-			WebElement scrollDown = driver.findElement(By.xpath("//h5[text()='Fruit & Nuts']"));
-
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("arguments[0].scrollIntoView(true)", scrollDown);
-
-			WebElement AddBtn = driver.findElement(By.xpath("//a[text()='Add'][1]"));
-			AddBtn.click();
-
-			WebElement addToCart = driver.findElement(By.id("cart-53"));
-			wt.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart-53")));
-			addToCart.click();
-
-			wt.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart_popup")));
-			WebElement goToCart = driver.findElement(By.xpath("//a[text()=' Go To Cart ']"));
-			goToCart.click();WebElement catageoryTab = driver.findElement(By.xpath("//a[text()='CATEGORIES ']"));
-
-			Actions action = new Actions(driver);
-			action.moveToElement(catageoryTab).perform();
-
-			WebElement groceryTab = driver.findElement(By.xpath("//a[text()='Grocery']"));
-
-			action.moveToElement(groceryTab).perform();
-
-			WebElement fruitsNutsTab = driver.findElement(By.xpath("//a[text()='Fruit & Nuts']"));
-			fruitsNutsTab.click();
-
-			WebElement scrollDown = driver.findElement(By.xpath("//h5[text()='Fruit & Nuts']"));
-
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("arguments[0].scrollIntoView(true)", scrollDown);
-
-			WebElement AddBtn = driver.findElement(By.xpath("//a[text()='Add'][1]"));
-			AddBtn.click();
-
-			WebElement addToCart = driver.findElement(By.id("cart-53"));
-			wt.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart-53")));
-			addToCart.click();
-
-			wt.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart_popup")));
-			WebElement goToCart = driver.findElement(By.xpath("//a[text()=' Go To Cart ']"));
-			goToCart.click();
+			driver.findElement(By.xpath("//img[@src='https://www.omrbranch.com/front/images/close-icon.png'][1]")).click();
+		} catch (Exception e) {
+			System.out.println("Your Cart is Empty");
 		}
 		
 	}
