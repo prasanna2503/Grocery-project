@@ -12,12 +12,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class GroceryClass {
+public class GroceryClass extends BaseClass {
 	
 	public static void main(String[] args) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		//driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
 		driver.get("https://www.omrbranch.com/");
 		
 		WebElement emailTxtBox = driver.findElement(By.id("email"));
@@ -146,7 +146,7 @@ public class GroceryClass {
 		Thread.sleep(2000);
 		
 		driver.findElement(By.id("v-pills-orders-tab")).click();
-		
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='More Details'][1]")).click();
 		
 		WebElement order = driver.findElement(By.xpath("//p[text()='Order No: ']"));
