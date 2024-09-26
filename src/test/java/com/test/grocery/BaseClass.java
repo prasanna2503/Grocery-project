@@ -21,7 +21,8 @@ package com.test.grocery;
 	import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 	import org.openqa.selenium.By;
 	import org.openqa.selenium.JavascriptExecutor;
-	import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
 	import org.openqa.selenium.TakesScreenshot;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.WebElement;
@@ -173,7 +174,11 @@ package com.test.grocery;
 		public void switchToFrameByIndex(int index) {
 			driver.switchTo().frame(index);
 		}
-
+		
+		public void switchToFrameByWebElement(WebElement element) {
+			driver.switchTo().frame(element);
+		}
+		
 		public void screenshot(String sName, WebElement element) throws IOException {
 			File screenshotAs = element.getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(screenshotAs, new File(
@@ -222,10 +227,21 @@ package com.test.grocery;
 				element.sendKeys(data);
 			}
 		}
+		public void elementSendKeysEnter(WebElement element, String data) {
+			visbilityOfElement(element);
+			
+			if (elementIsDisplayed(element) && elementIsEnabled(element)) {
+				element.sendKeys(data,Keys.ENTER);
+			}
+		}
 
 		public void elementSendKeysJs(WebElement element, String data) {
 			JavascriptExecutor executor = (JavascriptExecutor) driver;
 			executor.executeScript("arguments[0].setAttribute('value','" + data + "')", element);
+		}
+		public void elementClickJs(WebElement element, String data) {
+			JavascriptExecutor executor = (JavascriptExecutor) driver;
+			executor.executeScript("arguments[0].click()", element);
 		}
 
 		public void elementClick(WebElement element) {
@@ -341,6 +357,27 @@ package com.test.grocery;
 
 			}
 			return allOptions;
+		}
+		
+		public List<String> getAllOptionsValue(WebElement element) {
+			select = new Select(element);
+			List<WebElement> options = select.getOptions();
+
+			List<String> allValue = new ArrayList<>();
+
+			for (WebElement webElement : options) {
+				String value = webElement.getAttribute("value");
+				allValue.add(value);
+
+			}
+			return allValue;
+		}
+		
+		public String getFirstSelectedOption(WebElement element) {
+			select = new Select(element);
+			WebElement firstSelectedOption = select.getFirstSelectedOption();
+			String text = firstSelectedOption.getText();
+			return text;
 		}
 		
 		public void clickOkAlert() {
